@@ -33,11 +33,11 @@ home: function() {
 
   if (homeView) {
     // Re-activate the cached home view.
-    view.delegateEvents();
+    homeView.delegateEvents();
   } else {
     // Not in cache, instantiate a new view and cache it.
-    view = Backbone.ViewCache.set(new HomeView());
-    view.render();
+    homeView = Backbone.ViewCache.set(new HomeView());
+    homeView.render();
   }
 
   // (Re-)insert the view into the DOM.
