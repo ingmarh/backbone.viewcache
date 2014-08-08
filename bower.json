@@ -1,0 +1,21 @@
+{
+  "name": "backbone.viewcache",
+  "description": "Maintains a cache of Backbone views, retaining scroll positions.",
+  "main": "backbone.viewcache.js",
+  "authors": [
+    "Ingmar Hergst"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "backbone",
+    "viewcache",
+    "view",
+    "cache"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "package.json",
+    "gulpfile.js"
+  ]
+}

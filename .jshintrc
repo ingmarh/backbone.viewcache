@@ -1,0 +1,16 @@
+{
+  "quotmark": "single",
+  "camelcase": true,
+  "maxlen": 80,
+  "immed": true,
+  "undef": true,
+  "unused": true,
+  "eqnull": true,
+  "expr": true,
+  "browser": true,
+  "globals": {
+    "define": true,
+    "require": true,
+    "module": true
+  }
+}
