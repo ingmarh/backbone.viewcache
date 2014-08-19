@@ -1,6 +1,8 @@
 # Backbone.ViewCache
 
-Maintains a view cache based on the view’s route fragments. Retains the view’s scroll position by default (useful when re-inserting into the DOM). Cache expiry can be set globally and per view instance.
+Maintains a cache of [Backbone][backbone] views based on the view’s route fragment. Retains the view’s scroll position by default (useful when re-inserting view elements into the DOM).
+
+Cache expiry can be set globally and per view instance.
 
 ## Installation
 
@@ -37,16 +39,17 @@ home: function() {
   } else {
     // Not in cache, instantiate a new view and cache it.
     homeView = Backbone.ViewCache.set(new HomeView());
+
     homeView.render();
   }
 
-  // (Re-)insert the view into the DOM.
+  // (Re-)insert the view element into the DOM.
 }
 ```
 
 ```javascript
 // Remove the current view from the cache.
-Backbone.ViewCache.remove()
+Backbone.ViewCache.remove();
 
 // Clear the cache.
 Backbone.ViewCache.clear();
@@ -117,6 +120,7 @@ homeView.restoreScrollPosition();
 
 Due to a [known Android bug][android], restoring the view’s scroll position doesn’t work in the stock browser for Android 4.0.x (Ice Cream Sandwich) and lower.
 
+[backbone]: http://backbonejs.org/
 [amd]: https://github.com/amdjs/amdjs-api/wiki/AMD
 [requirejs]: http://requirejs.org/
 [browserify]: http://browserify.org/
