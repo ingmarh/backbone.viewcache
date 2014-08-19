@@ -1,6 +1,6 @@
 {
   "name": "backbone.viewcache",
-  "description": "Maintains a cache of Backbone views, retaining scroll positions.",
+  "description": "Maintains a simple cache of Backbone views, retaining the view’s scroll position by default.",
   "version": "1.0.0",
   "author": "Ingmar Hergst",
   "license": "MIT",
