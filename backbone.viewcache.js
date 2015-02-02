@@ -36,7 +36,11 @@
     // Time in seconds to have Backbone.ViewCache automatically clear expired
     // views from the cache with `Backbone.ViewCache.beforeRoute`.
     // Defaults to the value of the "cacheExpiry" global config.
-    checkExpireds: undefined
+    checkExpireds: undefined,
+
+    // If there is currently no stored scrollPosition for fragment,
+    // then scroll to top of `scrollElement`.
+    scrollToTopByDefault: true
 
   };
 
@@ -109,6 +113,8 @@
     restoreScrollPosition: function() {
       if (this._scrollPosition) {
         $(config.scrollElement).scrollTop(this._scrollPosition);
+      } else if (config.scrollToTopByDefault) {
+        $(config.scrollElement).scrollTop(0);
       }
     },
 
