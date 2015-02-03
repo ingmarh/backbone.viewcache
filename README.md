@@ -6,13 +6,13 @@ Cache expiry can be set globally and per view instance.
 
 ## Installation
 
-In a browser, include the plugin after jQuery, Underscore (or an equivalent library such as Lo-Dash), and Backbone have been included.
+In a browser, include the plugin after jQuery, Underscore (or an equivalent library such as lodash), and Backbone have been included.
 
 ``` html
 <script src="backbone.viewcache.js"></script>
 ```
 
-*Backbone.ViewCache* can also be loaded as an [AMD module][amd] or required in CommonJS-like environments (like Node) – e.g. for use with [Require.js][requirejs] or [Browserify][browserify]. It can be installed using the [Bower package manager][bower].
+*Backbone.ViewCache* can also be loaded as an [AMD module][amd] or required in CommonJS-like environments (like Node) – e.g. for use with [RequireJS][requirejs] or [Browserify][browserify]. It can be installed using the [Bower package manager][bower].
 
 ``` bash
 bower install backbone.viewcache --save
@@ -31,10 +31,11 @@ Use *Backbone.ViewCache* in your route handlers.
 
 ```javascript
 home: function() {
+  // Get the cached view for the current URL fragment.
   var homeView = Backbone.ViewCache.get();
 
   if (homeView) {
-    // Re-activate the cached home view.
+    // Re-activate the cached view.
     homeView.delegateEvents();
   } else {
     // Not in cache, instantiate a new view and cache it.
@@ -64,7 +65,8 @@ Backbone.ViewCache.set(new SearchView(), 'search');
 Backbone.ViewCache.remove('search');
 ```
 
-For retaining the scroll position and auto-clear expireds functionality, *Backbone.ViewCache* `beforeRoute` and `afterRoute` methods have to be called as pre- and post-route hooks. This can be done in your router’s `execute` method (added in Backbone v1.0.0).
+For retaining the scroll position and auto-clear expireds functionality, *Backbone.ViewCache* `beforeRoute` and `afterRoute` methods have to be called as pre- and post-route hooks.
+This can be done in your router’s `execute` method (added in Backbone v1.0.0).
 
 ```javascript
 execute: function(callback, args) {
@@ -96,7 +98,11 @@ Backbone.ViewCache.config({
   // Time in seconds to have Backbone.ViewCache automatically clear
   // expired views from the cache with `Backbone.ViewCache.beforeRoute`.
   // Defaults to the value of the "cacheExpiry" global config.
-  checkExpireds: undefined
+  checkExpireds: undefined,
+
+  // When restoring the cached view’s scroll position, scroll to the top of
+  // `scrollElement` if the view currently has no saved scroll position.
+  scrollToTopByDefault: true
 
 });
 ```
@@ -109,10 +115,12 @@ Backbone views are extended with three additional methods which are called inter
 // Expire the view in 5 minutes (takes precedence over global config).
 homeView.setCacheExpiry(300);
 
-// Save the view’s scroll position (while in the DOM).
+// While the view is in the DOM, save its scroll position.
 homeView.saveScrollPosition();
 
-// Restore the previously saved scroll position (while in the DOM).
+// While the view is in the DOM, restore its scroll position.
+// (Scrolls to top if the "scrollToTopByDefault" setting is on and
+//  the view currently has no saved scroll position.)
 homeView.restoreScrollPosition();
 ```
 

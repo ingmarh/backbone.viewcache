@@ -33,13 +33,13 @@
     // Can be overridden per view with the view's `setCacheExpiry` method.
     cacheExpiry: undefined,
 
-    // Time in seconds to have Backbone.ViewCache automatically clear expired
-    // views from the cache with `Backbone.ViewCache.beforeRoute`.
+    // Time in seconds to have Backbone.ViewCache automatically clear
+    // expired views from the cache with `Backbone.ViewCache.beforeRoute`.
     // Defaults to the value of the "cacheExpiry" global config.
     checkExpireds: undefined,
 
-    // If there is currently no stored scrollPosition for fragment,
-    // then scroll to top of `scrollElement`.
+    // When restoring the cached view’s scroll position, scroll to the top of
+    // `scrollElement` if the view currently has no saved scroll position.
     scrollToTopByDefault: true
 
   };
