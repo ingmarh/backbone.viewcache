@@ -79,6 +79,7 @@
   }
 
   function removeFromCache(key) {
+    cachedViews[key].remove();
     delete cachedViews[key];
   }
 
