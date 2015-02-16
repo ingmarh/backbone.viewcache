@@ -156,7 +156,7 @@
     // Returns the view.
     set: function(view, fragment) {
       fragment = getFragment(fragment);
-      view.setCacheExpiry(config.cacheExpiry);
+      if (!view._cacheExpiry) view.setCacheExpiry(config.cacheExpiry);
       if (expirySet) setClearExpiredsTime();
       cachedViews[fragment] = view;
       return view;
