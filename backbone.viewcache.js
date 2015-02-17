@@ -161,8 +161,8 @@
       fragment = getFragment(fragment);
       if (forceCacheUpdate || _.isUndefined(view._cacheExpiry)) {
         view.setCacheExpiry(config.cacheExpiry);
+        if (expirySet) setClearExpiredsTime();
       }
-      if (expirySet) setClearExpiredsTime();
       cachedViews[fragment] = view;
       return view;
     },
