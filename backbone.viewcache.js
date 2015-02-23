@@ -159,7 +159,7 @@
     // Returns the view.
     set: function(view, fragment, forceCacheUpdate) {
       fragment = getFragment(fragment);
-      if (forceCacheUpdate || _.isUndefined(view._cacheExpiry)) {
+      if (forceCacheUpdate || !view._cacheExpiry) {
         view.setCacheExpiry(config.cacheExpiry);
         if (expirySet) setClearExpiredsTime();
       }
