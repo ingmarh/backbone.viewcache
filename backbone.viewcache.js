@@ -153,11 +153,16 @@
 
     // Sets a view into the cache using the current URL fragment.
     // If a URL fragment is passed, it will be used instead.
+    //
+    // Maintains previously set cache expiration time unless
+    // forceCacheUpdate is used.
     // Returns the view.
-    set: function(view, fragment) {
+    set: function(view, fragment, forceCacheUpdate) {
       fragment = getFragment(fragment);
-      if (!view._cacheExpiry) view.setCacheExpiry(config.cacheExpiry);
-      if (expirySet) setClearExpiredsTime();
+      if (forceCacheUpdate || !view._cacheExpiry) {
+        view.setCacheExpiry(config.cacheExpiry);
+        if (expirySet) setClearExpiredsTime();
+      }
       cachedViews[fragment] = view;
       return view;
     },
