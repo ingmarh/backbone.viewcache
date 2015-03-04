@@ -100,7 +100,7 @@
   }
 
   function getFragment(fragment) {
-    return _.isUndefined(fragment) ? Backbone.history.fragment : fragment;
+    return _.isString(fragment) ? fragment : Backbone.history.fragment;
   }
 
   // Add scroll position and cache expiry methods to Backbone.View.prototype.
@@ -159,6 +159,7 @@
     //
     // Returns the view.
     set: function(view, fragment, forceCacheUpdate) {
+      if (_.isBoolean(fragment)) forceCacheUpdate = fragment;
       fragment = getFragment(fragment);
       if (forceCacheUpdate || !view._cacheExpiry) {
         view.setCacheExpiry(config.cacheExpiry);
