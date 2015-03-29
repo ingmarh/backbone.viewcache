@@ -56,9 +56,6 @@
   // the cache.
   var clearExpiredsTime;
 
-  // Flag to determine if cache expiry is used at all.
-  var expirySet = false;
-
   function setClearExpiredsTime() {
     var expireTime = config.checkExpireds || config.cacheExpiry;
 
@@ -121,7 +118,6 @@
     setCacheExpiry: function(expirationSeconds) {
       if (expirationSeconds) {
         this._cacheExpiry = _.now() + expirationSeconds * 1000;
-        expirySet = true;
       }
     }
 
@@ -161,9 +157,10 @@
     set: function(view, fragment, forceCacheUpdate) {
       if (_.isBoolean(fragment)) forceCacheUpdate = fragment;
       fragment = getFragment(fragment);
-      if (forceCacheUpdate || !view._cacheExpiry) {
+      if (!view._cacheExpiry || forceCacheUpdate) {
         view.setCacheExpiry(config.cacheExpiry);
-        if (expirySet) setClearExpiredsTime();
+        // Initial set of `clearExpiredsTime`.
+        if (!clearExpiredsTime) setClearExpiredsTime();
       }
       cachedViews[fragment] = view;
       return view;
@@ -194,7 +191,7 @@
         this.lastUrlFragment = lastFragment;
 
         // Clear expired views from the cache.
-        if (expirySet && _.now() > clearExpiredsTime) {
+        if (clearExpiredsTime && _.now() > clearExpiredsTime) {
           clearCache(true);
           setClearExpiredsTime();
         }
