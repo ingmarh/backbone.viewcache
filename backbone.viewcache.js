@@ -157,11 +157,17 @@
     set: function(view, fragment, forceCacheUpdate) {
       if (_.isBoolean(fragment)) forceCacheUpdate = fragment;
       fragment = getFragment(fragment);
+
       if (!view._cacheExpiry || forceCacheUpdate) {
         view.setCacheExpiry(config.cacheExpiry);
-        // Initial set of `clearExpiredsTime`.
-        if (!clearExpiredsTime) setClearExpiredsTime();
       }
+
+      // Initial set of `clearExpiredsTime` (to start auto-clearExpireds) when
+      // the first view with a defined cache expiry time is set into the cache.
+      if (!clearExpiredsTime && view._cacheExpiry) {
+        setClearExpiredsTime();
+      }
+
       cachedViews[fragment] = view;
       return view;
     },
