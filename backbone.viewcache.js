@@ -21,21 +21,21 @@
 
   var defaultConfig = {
 
-    // Automatically save and restore the cached view's scroll position.
+    // Automatically save and restore the cached view’s scroll position.
     // Useful when re-inserting view elements into the DOM.
     retainScrollPosition: true,
 
-    // Element that will be used for retaining the view's scroll position.
+    // Element that will be used for retaining the view’s scroll position.
     // Can be a selector string or DOM element.
     scrollElement: window,
 
-    // Cached view expire time in seconds, or falsy for no expiry.
-    // Can be overridden per view with the view's `setCacheExpiry` method.
+    // Cached view’s expiry time in seconds, or falsy for no expiry.
+    // Can be overridden per view with the view’s `setCacheExpiry` method.
     cacheExpiry: undefined,
 
     // Time in seconds to have Backbone.ViewCache automatically clear
     // expired views from the cache with `Backbone.ViewCache.beforeRoute`.
-    // Defaults to the value of the "cacheExpiry" global config.
+    // Defaults to the value of the "cacheExpiry" configuration setting.
     checkExpireds: undefined,
 
     // When restoring the cached view’s scroll position, scroll to the top of
@@ -64,8 +64,8 @@
     }
   }
 
-  // Updates the cached view's scroll position for given fragment;
-  // "save" or "restore", determined by the action parameter.
+  // Updates the cached view’s scroll position for given fragment;
+  // "save" or "restore", depending on the action parameter value.
   function scrollPosition(action, fragment) {
     var cachedView;
 
@@ -138,22 +138,20 @@
       return config;
     },
 
-    // Gets a view from the cache using the current URL fragment.
-    // If a URL fragment is passed, it will be used instead.
-    // Returns the view or `undefined` if not in cache.
+    // Gets a view from the cache using the current or a given URL fragment.
+    // Returns the view, or `undefined` if not in cache.
     get: function(fragment) {
       fragment = getFragment(fragment);
       removeFromCacheIfExpired(fragment);
       return cachedViews[fragment];
     },
 
-    // Sets a view into the cache using the current URL fragment.
-    // If a URL fragment is passed, it will be used instead.
-    //
-    // Maintains previously set cache expiration time unless
-    // forceCacheUpdate is used.
-    //
+    // Sets a view into the cache using the current or a given URL fragment.
     // Returns the view.
+    //
+    // Unless the view already has a cache expiry time, it will be set using
+    // the "cacheExpiry" configuration setting value. This can also be forced
+    // with the boolean `forceCacheUpdate` parameter.
     set: function(view, fragment, forceCacheUpdate) {
       if (_.isBoolean(fragment)) forceCacheUpdate = fragment;
       fragment = getFragment(fragment);
@@ -172,15 +170,16 @@
       return view;
     },
 
-    // Removes a view from the cache using the current URL fragment.
-    // If a URL fragment is passed, it will be used instead.
+    // Removes a view from the cache using the current or a given URL fragment.
     remove: function(fragment) {
       fragment = getFragment(fragment);
       removeFromCache(fragment);
     },
 
     // Removes all views from the cache.
-    clear: clearCache,
+    clear: function() {
+      clearCache();
+    },
 
     // Removes all expired views from the cache.
     clearExpireds: function() {

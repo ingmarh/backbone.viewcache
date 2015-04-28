@@ -49,17 +49,15 @@ home: function() {
 ```
 
 ```javascript
-// Remove the current view from the cache.
+// Remove the view for the current URL fragment from the cache.
 Backbone.ViewCache.remove();
 
-// Clear the cache.
+// Clear the cache, or clear all expired views from the cache.
 Backbone.ViewCache.clear();
-
-// Clear all expired views from the cache.
 Backbone.ViewCache.clearExpireds();
 
-// An optional URL fragment argument can be passed.
-// If not passed, it defaults to Backbone.history.fragment
+// "get", "set", and "remove" can also be called with an optional URL
+// fragment argument. Defaults to `Backbone.history.fragment`.
 Backbone.ViewCache.get('search');
 Backbone.ViewCache.set(new SearchView(), 'search');
 Backbone.ViewCache.remove('search');
@@ -91,13 +89,13 @@ Backbone.ViewCache.config({
   // Can be a selector string or DOM element.
   scrollElement: window,
 
-  // Cached view’s expire time in seconds, or falsy for no expiry.
+  // Cached view’s expiry time in seconds, or falsy for no expiry.
   // Can be overridden per view with the view’s `setCacheExpiry` method.
   cacheExpiry: undefined,
 
   // Time in seconds to have Backbone.ViewCache automatically clear
   // expired views from the cache with `Backbone.ViewCache.beforeRoute`.
-  // Defaults to the value of the "cacheExpiry" global config.
+  // Defaults to the value of the "cacheExpiry" configuration setting.
   checkExpireds: undefined,
 
   // When restoring the cached view’s scroll position, scroll to the top of
