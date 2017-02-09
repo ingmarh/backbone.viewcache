@@ -15,7 +15,6 @@
   "ignore": [
     "**/.*",
     "node_modules",
-    "package.json",
-    "gulpfile.js"
+    "package.json"
   ]
 }

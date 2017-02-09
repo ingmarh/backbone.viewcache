@@ -6,9 +6,15 @@
   "license": "MIT",
   "main": "backbone.viewcache.js",
   "repository": "ingmarh/backbone.viewcache",
+  "scripts": {
+    "lint": "eslint $npm_package_main",
+    "minify": "uglifyjs $npm_package_main -cm --comments '/^!/' -o $npm_package_name.min.js",
+    "preversion": "npm run lint",
+    "version": "npm run version:update && npm run minify && git add package.json $npm_package_name.*",
+    "version:update": "sed -i \"1,/v.*/ s/[0-9].*/$npm_package_version/\" $npm_package_main"
+  },
   "devDependencies": {
-    "gulp": "~3.8.6",
-    "gulp-concat": "~2.3.4",
-    "gulp-uglify": "~0.3.1"
+    "eslint": "^3.14.1",
+    "uglify-js": "^2.7.5"
   }
 }

@@ -130,5 +130,5 @@ Due to a [known Android bug][android], restoring the view’s scroll position do
 [amd]: https://github.com/amdjs/amdjs-api/wiki/AMD
 [requirejs]: http://requirejs.org/
 [browserify]: http://browserify.org/
-[bower]: http://bower.io/
+[bower]: https://bower.io/
 [android]: https://code.google.com/p/android/issues/detail?id=19625
