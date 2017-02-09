@@ -1,5 +1,5 @@
 /*!
- * backbone.viewcache.js v1.1.1
+ * backbone.viewcache.js v1.1.2
  * Copyright 2014, 2015 Ingmar Hergst
  * backbone.viewcache.js may be freely distributed under the MIT license.
  */
